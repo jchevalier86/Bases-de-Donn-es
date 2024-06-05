@@ -1,0 +1,6 @@
+select installer.nPoste, poste.indip, poste.ad, logiciel.nomlog, types.nomtype from installer
+    inner join poste    on installer.nposte = poste.nposte
+    inner join logiciel on installer.nlog   = logiciel.nlog
+    inner join types    on poste.typelp     = types.typelp
+    where poste.indip = '130.120.81'
+    order by installer.nPoste;

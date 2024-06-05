@@ -1,0 +1,8 @@
+
+mysqldump -u root -p gaumont > dbexport.sql
+
+mysql -u root -p gaumont < dbexport-gaumont.sql
+
+
+
+

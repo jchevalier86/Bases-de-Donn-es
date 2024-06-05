@@ -1,0 +1,115 @@
+Sauvegarde de la base de données gaumont
+mysqldump -u root -p gaumont > dbexport-gaumont.sql
+
+Supprimer la base
+Recréer la base
+Restore de la base de données gaumont
+mysql -u root -p gaumont < dbexport-gaumont.sql
+
+Dans l'exemple suivant nous avons trois tables :
+Films        : table des films
+Acteurs      : table des Acteurs
+FilmActeur   : table des Acteurs par Films
+
+Il existe un lien (clé étrangère) entre Films et FilmActeur et entre Acteurs et FilmActeur. (La table FilmActeur est en fait un produit cartesien entre Film et Acteur.
+
+Nous allons nous interesser sur la relation qui existe entre Films et FilmActeur symbolisé par la foreign key filmauteur_fk.
+
+Liste des Films d'Anouk Aimée
+
+select films.id, films.titrevf from filmacteur, films
+	where filmacteur.id = films.id and filmacteur.acteur = 'Anouk Aimée';
+
+select films.id, films.titrevf from films
+	inner join filmacteur on films.id = filmacteur.id and filmacteur.acteur = 'Anouk Aimée';
+
+
+Liste des acteurs du film 'Babylon A.D.'
+
+select filmacteur.acteur, films.titrevf from filmacteur, films
+	where filmacteur.id = films.id and films.titrevf = 'Babylon A.D.';
+
+select filmacteur.acteur, films.titrevf from films
+	inner join filmacteur on films.id and filmacteur.id = films.id and films.titrevf = 'Babylon A.D.';
+
+Liste des Films de Depardieu
+
+select films.id, films.titrevf from filmacteur, films
+	where filmacteur.id = films.id and filmacteur.acteur like '%Depardieu%';
+
+select films.id, films.titrevf from films
+	inner join filmacteur on films.id = filmacteur.id and filmacteur.acteur like '%Depardieu';
+
+Liste de tous les films triés par ordre croissant id avec leurs acteurs
+
+select films.id, films.titrevf, filmacteur.acteur from films, filmacteur
+	where filmacteur.id = films.id order by 1;
+	
+select films.id, films.titrevf, filmacteur.acteur from films 
+	inner join filmacteur on films.id = filmacteur.id order by 1;
+
+Liste des films avec leurs acteurs et leurs dates de naissance pour le pays 'Canada'
+
+select filmacteur.acteur, films.titrevf, acteurs.birthday
+	from films
+		inner join filmacteur on films.id = filmacteur.id
+		inner join acteurs on filmacteur.acteur = acteurs.acteur
+and films.pays = 'Canada';
+
+
+Liste des genres de films où les acteurs sont nés le 26/12/2001 (il n'y en a que 3 la famille Depardieu)
+
+select distinct films.genre from acteurs 
+	inner join filmacteur on acteurs.acteur = filmacteur.acteur 
+	inner join films on filmacteur.id = films.id
+and acteurs.birthday = '2001-12-26' order by films.genre;
+
+Liste des films, genres de films et acteurs où les acteurs sont nés le 26/12/2001
+
+select films.titrevf, films.genre, acteurs.acteur from acteurs 
+	inner join filmacteur on acteurs.acteur = filmacteur.acteur 
+	inner join films on filmacteur.id = films.id
+and acteurs.birthday = '2001-12-26' order by films.genre;
+
+
+select filmacteur.acteur, films.titrevf, acteurs.birthday
+	from films
+		inner join filmacteur on films.id = filmacteur.id
+		inner join acteurs on filmacteur.acteur = acteurs.acteur
+and films.pays = 'Canada';
+
+
+select filmacteur.acteur, films.titrevf, acteurs.birthday
+	from films
+		inner join filmacteur on films.id = filmacteur.id
+		inner join acteurs on filmacteur.acteur = acteurs.acteur
+and films.pays = 'Finlande';
+
+
+select filmacteur.acteur, films.titrevf, acteurs.birthday
+	from films
+		inner join filmacteur on films.id = filmacteur.id
+		inner join acteurs on filmacteur.acteur = acteurs.acteur
+and films.pays = 'Suède';
+
+select filmacteur.acteur, films.titrevf, acteurs.birthday
+	from films
+		inner join filmacteur on films.id = filmacteur.id
+		inner join acteurs on filmacteur.acteur = acteurs.acteur
+and films.pays like '%lande';
+
+
+
+
+
+
+
+
+
+
+Petit plus pour la route
+(uniquement line feed)
+LOAD DATA LOCAL INFILE "IfFilmActeurs.csv" INTO TABLE maneuvre FIELDS TERMINATED BY ';' LINES TERMINATED BY '\n';
+(carriage return line field)
+LOAD DATA LOCAL INFILE "IfFilmActeurs.csv" INTO TABLE maneuvre FIELDS TERMINATED BY ';' LINES TERMINATED BY '\r\n';
+

@@ -1,0 +1,29 @@
+
+
+Tous les poste dont le type est UNIX
+select * from poste where typelp = 'UNIX';
+
+Tous les nom de poste qui sont dans des salles (nom de la salle) et type de poste donst le type est 'UNIX'
+select poste.nomposte, salle.nomsalle, poste.typelp from poste
+    inner join salle on poste.nsalle = salle.nsalle
+    where poste.typelp = 'UNIX';
+
+select logiciel.nomlog, types.nomtype, installer.nposte from installer
+    inner join logiciel on logiciel.nlog = installer.nlog
+    inner join types    on logiciel.typelp = types.typelp
+    where types.typelp = 'UNIX';
+
+Tous les postes qui ont des logiciels UNIX en précisant le nom du logiciel, le nom du type logiciel, le numéro de poste, l'adresse IP triés par nom du logiciel et poste installé.
+select logiciel.nomlog, types.nomtype, installer.nposte, poste.indIP, poste.ad from installer
+    inner join poste    on poste.nposte    = installer.nposte
+    inner join logiciel on logiciel.nlog   = installer.nlog
+    inner join types    on logiciel.typelp = types.typelp
+    where types.typelp = 'UNIX'
+    order by installer.nlog, installer.nposte;
+
+select installer.nPoste, poste.indip, poste.ad, logiciel.nomlog, types.nomtype from installer
+    inner join poste    on installer.nposte = poste.nposte
+    inner join logiciel on installer.nlog   = logiciel.nlog
+    inner join types    on poste.typelp     = types.typelp
+    where poste.indip = '130.120.81'
+    order by installer.nPoste;

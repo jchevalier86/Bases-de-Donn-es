@@ -1,0 +1,11 @@
+LOAD DATA LOCAL INFILE "Clients.csv"         INTO TABLE clients           FIELDS TERMINATED BY ';' LINES TERMINATED BY '\r\n';
+LOAD DATA LOCAL INFILE "Commandes.csv"       INTO TABLE commandes         FIELDS TERMINATED BY ';' LINES TERMINATED BY '\r\n';
+LOAD DATA LOCAL INFILE "Ingredients.csv"     INTO TABLE ingredients       FIELDS TERMINATED BY ';' LINES TERMINATED BY '\r\n';
+LOAD DATA LOCAL INFILE "Pizzas.csv"          INTO TABLE pizzas            FIELDS TERMINATED BY ';' LINES TERMINATED BY '\r\n';
+LOAD DATA LOCAL INFILE "PizzaIngredient.csv" INTO TABLE pizza_ingredients FIELDS TERMINATED BY ';' LINES TERMINATED BY '\r\n';
+LOAD DATA LOCAL INFILE "LignesCommande.csv"  INTO TABLE lignes_commandes  FIELDS TERMINATED BY ';' LINES TERMINATED BY '\r\n';
+
+
+mysql -u root -p pizza < dbexport_pizza.sql
+mysqldump -u root -p pizza > dbexport_pizza.sql
+

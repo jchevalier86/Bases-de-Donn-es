@@ -1,0 +1,9 @@
+
+
+Tous les postes dont le type est UNIX
+
+Tous les nom de poste qui sont dans des salles (nom de la salle) et type de poste donst le type est 'UNIX'
+
+Tous les postes qui ont des logiciels UNIX en précisant le nom du logiciel, le nom du type logiciel, le numéro de poste, l'adresse IP triés par nom du logiciel et poste installé.
+
+Tous les postes sur le segment '130.120.81' en précisant leur ip complète le nom des logiciels installés et le nom du type de poste

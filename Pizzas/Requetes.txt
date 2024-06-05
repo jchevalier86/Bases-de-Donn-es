@@ -1,0 +1,23 @@
+select clients.nom, clients.telephone, commandes.id_commande, commandes.date_commande, lignes_commandes.ligne, pizzas.nom,
+     lignes_commandes.quantite, lignes_commandes.montant from commandes
+        inner join clients          on commandes.telephone       = clients.telephone
+        inner join lignes_commandes on commandes.id_commande     = lignes_commandes.id_commande
+        inner join pizzas           on lignes_commandes.id_pizza = pizzas.id_pizza
+        where commandes.id_commande = 20200006 order by lignes_commandes.ligne;
+
+select clients.nom, clients.telephone, commandes.id_commande, commandes.date_commande, lignes_commandes.ligne, pizzas.nom,
+     lignes_commandes.quantite, lignes_commandes.montant, commandes.prix from commandes
+        inner join clients          on commandes.telephone       = clients.telephone
+        inner join lignes_commandes on commandes.id_commande     = lignes_commandes.id_commande
+        inner join pizzas           on lignes_commandes.id_pizza = pizzas.id_pizza
+        order by commandes.id_commande, lignes_commandes.ligne;
+
+select pizzas.nom, pizzas.taille, ingredients.ingredient, pizza_ingredients.quantite from pizzas
+        inner join pizza_ingredients on pizza_ingredients.id_pizza = pizzas.id_pizza
+        inner join ingredients       on ingredients.id_ingredient  = pizza_ingredients.id_ingredient
+        where pizzas.nom = 'Pizza Reine' and pizzas.taille = 2;
+
+select pizzas.nom, pizzas.taille, ingredients.ingredient, pizza_ingredients.quantite from pizzas
+        inner join pizza_ingredients on pizza_ingredients.id_pizza = pizzas.id_pizza
+        inner join ingredients       on ingredients.id_ingredient  = pizza_ingredients.id_ingredient
+	order by pizzas.nom, pizzas.taille;
